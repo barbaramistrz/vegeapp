@@ -20,15 +20,17 @@ const Search = (props) => {
 
   return (
       <form className="search my-4">
-        <div className="field container columns level">
-  <div className="control column  level-item">
+        <div className="field container level">
+  <div className="control   level-item">
         <input
         className="input "
           value={searchValue}
           onChange={handleSearchInputChanges}
           type="text"
         />
-        <input className="button mt-2" onClick={callSearchFunction} type="submit" value="SEARCH" />
+    
+        <input className="button level-item" onClick={callSearchFunction} type="submit" value="SEARCH" />
+
         </div></div>
       </form>
     );

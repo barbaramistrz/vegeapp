@@ -1,6 +1,8 @@
 {
   "hosting": {
+    "site": "vegeapp",
     "public": "build",
+    
     "ignore": [
       "firebase.json",
       "**/.*",

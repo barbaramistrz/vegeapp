@@ -8,6 +8,7 @@ const Recipes = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [searchedRecipe, setSearchedRecipe] = useState({ searched: null });
+  const [favourites, setFavourites] = useState({ favouriteRecipes: [null] });
 
   const apiURL = "https://api.edamam.com/search?q=";
   const apiKey = "&app_key=c2ae1539336785970a35bb702f98f801";
@@ -35,6 +36,11 @@ const Recipes = () => {
         }
       );
   };
+//   const addToFavourites = (results) => {
+// setFavourites({favouriteRecipes: [ results]})
+//   console.log(favourites)
+
+// }
 
   if (error) {
     return (
@@ -56,9 +62,7 @@ const Recipes = () => {
           <Search search={search} />
         </div>
         <div className="content has-text-centered">
-          <p>
-            <strong>VEGE APP</strong> by <a href="https://github.com/barbaramistrz/" target="_blank" rel="noopener noreferrer" >Basia Stolarz</a>.
-          </p>
+          <p><strong>VEGE APP</strong> by <a href="https://github.com/barbaramistrz/" target="_blank" rel="noopener noreferrer" >Basia Stolarz</a>.</p>
           <p>Recipe finder with <a href="https://developer.edamam.com/edamam-recipe-api">Edamam API</a>. Done with React, CSS with Bulma</p>
         </div>
       </div>
@@ -73,7 +77,9 @@ const Recipes = () => {
         </div>
         <div className="recipes px-6 py-6 container columns is-multiline is-fluid box">
           {recipes.map((recipe, index) => {
-            return <Recipe recipe={recipe} key={index} />;
+            return <Recipe recipe={recipe} key={index}
+            //  callbackFromParent={addToFavourites()}
+             />;
           })}
         </div>
       </div>
