@@ -27,6 +27,7 @@ const Search = (props) => {
           value={searchValue}
           onChange={handleSearchInputChanges}
           type="text"
+          required
         />
     
         <input className="button level-item" onClick={callSearchFunction} type="submit" value="SEARCH" />

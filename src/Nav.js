@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "./Nav.css";
 import { NavLink } from "react-router-dom";
 
 const Nav = () => {
@@ -30,10 +29,6 @@ const [burgerOpen, setBurgerOpen] = useState(false)
         <NavLink activeClassName='active' to="/recipes" className="navbar-item">My Favourites</NavLink>
 
         {/* <NavLink activeClassName='active' to="/gallery" className="navbar-item">Gallery</NavLink> */}
-
-      {/* <li>
-        <NavLink activeClassName='active' to="/contact">Contact</NavLink>
-      </li> */}
 
     </div>
     </div>
