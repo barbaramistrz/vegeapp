@@ -4,6 +4,7 @@ import React, { useState } from "react";
 const Search = (props) => {
   const [searchValue, setSearchValue] = useState("");
   
+
   const handleSearchInputChanges = (e) => {
     setSearchValue(e.target.value);
   }
@@ -18,6 +19,7 @@ const Search = (props) => {
     resetInputField();
   }
 
+
   return (
       <form className="search my-4">
         <div className="field container level">
@@ -27,7 +29,7 @@ const Search = (props) => {
           value={searchValue}
           onChange={handleSearchInputChanges}
           type="text"
-          required
+          
         />
     
         <input className="button level-item" onClick={callSearchFunction} type="submit" value="SEARCH" />

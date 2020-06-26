@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Recipe = ({ recipe, index }) => {
   const [ingredientsVisible, setIngredientsVisible] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
 
+  let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
+ 
+  const checkIfFavourite = () =>{
+    let recipefavourite = storedFavorites.find(rec => rec.recipe.label === recipe.recipe.label);
+    console.log(recipefavourite)
+     recipefavourite !== undefined? setIsFavourite(true) : setIsFavourite(false);
+ }
+
   const toggleIngredients = () => {
     setIngredientsVisible(!ingredientsVisible);
   };
+
   
   const add= ()=>{
-    let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
     if(storedFavorites !== null){
     storedFavorites.push(recipe)
     localStorage.setItem('favourites', JSON.stringify(storedFavorites))
@@ -18,17 +26,18 @@ const Recipe = ({ recipe, index }) => {
   }};
  
   const remove= ()=>{
-    let storedFavorites = JSON.parse(localStorage.getItem('favourites'));
     storedFavorites.splice(storedFavorites.findIndex(rec => rec.recipe.label === recipe.recipe.label), 1);
     localStorage.setItem('favourites', JSON.stringify(storedFavorites));
   };
 
-  
   const  toggleFavourite = (e) => {
     e.preventDefault();
     setIsFavourite(!isFavourite);
+    console.log(isFavourite)
   };
   
+  useEffect(()=>checkIfFavourite(), [])
+
   return (
     <div id={`recipe${index}`} key={index} className="column card mx-1 my-1">
       <img

@@ -1,19 +1,28 @@
-import React, { useState} from "react";
+import React from "react";
 import Recipe from "./Recipe";
 
 const FavouriteRecipes = () => {
-const recipes = JSON.parse(localStorage.getItem("favourites"))
-recipes.length >=4 ? document.getElementById("root").style.height = "100%": document.getElementById("root").style.height = "100vh";
+  const recipes = JSON.parse(localStorage.getItem("favourites"));
+  console.log(recipes)
+  recipes.length >= 4
+    ? (document.getElementById("root").style.height = "100%")
+    : (document.getElementById("root").style.height = "100vh");
 
-
-  return <div className="container ">
-<div className="recipes container columns is-multiline is-fluid box mt-4">
+  return (
+    <div className="container ">
+      {recipes.length < 1 ? (
+        <div className="recipes container columns is-multiline is-fluid box mt-4">
+          Click the heart button to choose your favourites!
+        </div>
+      ) : (
+        <div className="recipes container columns is-multiline is-fluid box mt-4">
           {recipes.map((recipe, index) => {
             return <Recipe recipe={recipe} key={index} />;
           })}
-        </div>  </div>
-
- }
-
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default FavouriteRecipes;

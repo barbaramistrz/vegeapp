@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "./Search";
 import Recipe from "./Recipe";
 import { useHistory } from "react-router-dom";
@@ -8,10 +8,11 @@ const Recipes = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [searchedRecipe, setSearchedRecipe] = useState({ searched: null });
+  const [isLoading, setIsLoading] = useState(false);
 
   const apiURL = "https://api.edamam.com/search?q=";
   const apiKeyId = "&app_key=c2ae1539336785970a35bb702f98f801&app_id=0cb5dc1b";
-  const vegan = "&health=vegan&from=0&to=12";
+  const vegan = "&health=vegan&diet=balanced&from=0&to=12";
 
   function setParams({ query = "" }) {
     const searchParams = new URLSearchParams();
@@ -19,15 +20,27 @@ const Recipes = () => {
     return searchParams.toString();
   }
 
+  function getParams(location) {
+    const searchParams = new URLSearchParams(location.search);
+    return {
+      query: searchParams.get('query') || '',
+    };
+  }
   let history = useHistory();
+  const { query } = getParams(window.location);
+
 
   const updateURL = (searchValue) => {
     const url = setParams({ query: searchValue });
     history.push(`?${url}`);
   };
 
+  useEffect(()=>{if (query !== ""){
+    search(query)}}, [])
+
   const search = (searchValue) => {
     setIsLoaded(false);
+    setIsLoading(true)
     setError(null);
     console.log(searchValue);
     setSearchedRecipe({ searched: searchValue });
@@ -37,11 +50,14 @@ const Recipes = () => {
       .then(
         (result) => {
           setIsLoaded(true);
+          setIsLoading(false);
           setRecipes(result.hits);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
+          setIsLoading(false);
+
         }
       );
   };
@@ -60,9 +76,7 @@ const Recipes = () => {
 
   if (error) {
     document.getElementById("root").style.height = "100vh";
-    document.body.style.backgroundImage =
-      "https://images.unsplash.com/photo-1498579809087-ef1e558fd1da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-
+   
     return (
       <div className="mt-4">
         Error: {error.message}
@@ -70,26 +84,38 @@ const Recipes = () => {
           <Search search={search} />
         </div>
       </div>);
-  } else if (!isLoaded) {
+
+  } else if (!isLoaded && !isLoading) {
     document.getElementById("root").style.height = "100vh";
-    document.body.style.backgroundImage =
-      "https://images.unsplash.com/photo-1498579809087-ef1e558fd1da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
+   
     return (
-      <div id="background" className="pb-6">
+      <div className="pb-6">
       {mainIntro}
       <div id="intro3" className="container pb-6">
     <Search search={search} />
      </div>
      {byline}
       </div>);
-  } else {
-    // document.body.style.removeProperty("background-image");
-    // document.body.style.backgroundImage = 'https://images.unsplash.com/photo-1528459584353-5297db1a9c01?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1075&q=80';
+
+  } else if(isLoading) {
+    return (
+      <div className="container">
+        <Search search={search} />
+        <div className="container mx-6 title has-text-centered">
+        {isLoading? `Searching for delicious ${searchedRecipe.searched} recipes...` : `Delicious ${searchedRecipe.searched} recipes`}  
+        </div>
+        <div className="recipes  container columns is-multiline is-fluid box">
+          {recipes.map((recipe, index) => {
+            return <Recipe recipe={recipe} key={index} />;
+          })}
+        </div>
+      </div>
+    );} else{
     console.log(recipes);
     if (recipes.length === 0) {
       document.getElementById("root").style.height = "100vh";
       return (
-        <div id="background" className="pb-6">
+        <div  className="pb-6">
         {mainIntro}    
         <div id="intro3" className="container pb-6">
             <Search search={search} />   
@@ -97,14 +123,15 @@ const Recipes = () => {
         </div>    
        {byline}
         </div>);
+
     } else {
       recipes.length >=4 ? document.getElementById("root").style.height = "100%": document.getElementById("root").style.height = "100vh";
-
+      console.log(isLoading)
       return (
         <div className="container">
           <Search search={search} />
           <div className="container mx-6 title has-text-centered">
-            Delicious {searchedRecipe.searched} recipes
+          {isLoading? `Searching for delicious ${searchedRecipe.searched} recipes...` : `Delicious ${searchedRecipe.searched} recipes`}  
           </div>
           <div className="recipes  container columns is-multiline is-fluid box">
             {recipes.map((recipe, index) => {
