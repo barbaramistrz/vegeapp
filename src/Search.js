@@ -14,10 +14,11 @@ const Search = (props) => {
   }
 
   const callSearchFunction = (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  if(searchValue !== ""){
     props.search(searchValue);
     resetInputField();
-  }
+  }}
 
 
   return (

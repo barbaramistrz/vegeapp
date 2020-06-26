@@ -133,7 +133,7 @@ const Recipes = () => {
           <div className="container mx-6 title has-text-centered">
           {isLoading? `Searching for delicious ${searchedRecipe.searched} recipes...` : `Delicious ${searchedRecipe.searched} recipes`}  
           </div>
-          <div className="recipes  container columns is-multiline is-fluid box">
+          <div className="recipes container columns is-multiline is-3 is-fluid box">
             {recipes.map((recipe, index) => {
               return <Recipe recipe={recipe} key={index} />;
             })}

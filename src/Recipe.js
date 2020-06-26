@@ -4,9 +4,10 @@ const Recipe = ({ recipe, index }) => {
   const [ingredientsVisible, setIngredientsVisible] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
 
-  let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
  
   const checkIfFavourite = () =>{
+    let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
+
     let recipefavourite = storedFavorites.find(rec => rec.recipe.label === recipe.recipe.label);
     console.log(recipefavourite)
      recipefavourite !== undefined? setIsFavourite(true) : setIsFavourite(false);
@@ -18,39 +19,46 @@ const Recipe = ({ recipe, index }) => {
 
   
   const add= ()=>{
-    if(storedFavorites !== null){
+    let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
+
+    if(storedFavorites.length >= 1){
     storedFavorites.push(recipe)
     localStorage.setItem('favourites', JSON.stringify(storedFavorites))
+    console.log(storedFavorites)
     }else{
     localStorage.setItem('favourites', JSON.stringify([recipe]))
   }};
  
   const remove= ()=>{
+    let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
     storedFavorites.splice(storedFavorites.findIndex(rec => rec.recipe.label === recipe.recipe.label), 1);
     localStorage.setItem('favourites', JSON.stringify(storedFavorites));
+    console.log(storedFavorites)
   };
 
   const  toggleFavourite = (e) => {
     e.preventDefault();
     setIsFavourite(!isFavourite);
     console.log(isFavourite)
+    isFavourite? remove() : add();
   };
   
   useEffect(()=>checkIfFavourite(), [])
 
   return (
-    <div id={`recipe${index}`} key={index} className="column card mx-1 my-1">
+    <div id={`recipe${index}`} key={index} className="column box  my-1 has-text-centered is-one-third">
       <img
         src={recipe.recipe.image}
         alt={recipe.recipe.label}
         max-height="150px"
-        className="card-image"
+        className="card-image is-inline-block"
       />
-      <div className="card-content">
-        <p className="title is-5">{recipe.recipe.label}</p>  </div>
+      <div className="card-content ">
+        <p className="title is-5">{recipe.recipe.label}</p> 
+        </div>
         <footer className="card-footer">
     <a href="#" className="card-footer-item" onClick={(e) => toggleFavourite(e)}><span className="icon">
-    {isFavourite? <img className="fa fa-home" onClick={()=>remove(recipe)} src="https://image.flaticon.com/icons/png/512/1077/1077086.png"/> : <img className="fa fa-home" onClick={()=>add()} src="https://image.flaticon.com/icons/png/512/1077/1077035.png"/>}
+    {isFavourite? <img className="fa fa-home" src="https://image.flaticon.com/icons/png/512/1077/1077086.png"/> : <img className="fa fa-home" src="https://image.flaticon.com/icons/png/512/1077/1077035.png"/>}
     </span>
     </a>
     <a href={recipe.recipe.url} target="_blank" className="card-footer-item">Recipe</a>
