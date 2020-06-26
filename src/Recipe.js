@@ -26,7 +26,11 @@ const Recipe = ({ recipe, index }) => {
     storedFavorites.push(recipe)
     localStorage.setItem('favourites', JSON.stringify(storedFavorites))
     console.log(storedFavorites)
-    }}else{
+    }else{
+      localStorage.setItem('favourites', JSON.stringify([recipe]))
+    }
+  
+  }else{
     localStorage.setItem('favourites', JSON.stringify([recipe]))
   }};
  
