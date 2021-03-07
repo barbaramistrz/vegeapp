@@ -39,10 +39,10 @@ const Recipes = () => {
     search(query)}}, [])
 
   const search = (searchValue) => {
-    setIsLoaded(false);
+    setIsLoaded(false)
     setIsLoading(true)
-    setError(null);
-    console.log(searchValue);
+    setError(null)
+
     setSearchedRecipe({ searched: searchValue });
     updateURL(searchValue);
     fetch(`${apiURL}${searchValue}${vegan}${apiKeyId}`)
@@ -102,7 +102,7 @@ const Recipes = () => {
       <div className="container">
         <Search search={search} />
         <div className="container mx-6 title has-text-centered">
-        {isLoading? `Searching for delicious ${searchedRecipe.searched} recipes...` : `Delicious ${searchedRecipe.searched} recipes`}  
+        {`Searching for delicious ${searchedRecipe.searched} recipes...`}  
         </div>
         <div className="recipes  container columns is-multiline is-fluid box">
           {recipes.map((recipe, index) => {
@@ -131,7 +131,7 @@ const Recipes = () => {
         <div className="container">
           <Search search={search} />
           <div className="container mx-6 title has-text-centered">
-          {isLoading? `Searching for delicious ${searchedRecipe.searched} recipes...` : `Delicious ${searchedRecipe.searched} recipes`}  
+          {`Delicious ${searchedRecipe.searched} recipes`}  
           </div>
           <div className="recipes container columns is-multiline is-3 is-fluid box">
             {recipes.map((recipe, index) => {
