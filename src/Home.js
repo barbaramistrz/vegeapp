@@ -2,13 +2,7 @@ import React from "react";
 import Recipes from "./Recipes";
 
 const Home = () => {
-
-  return(
-   
-     <Recipes />
-
-  )}
- 
-
+  return <Recipes />;
+};
 
 export default Home;
