@@ -2,9 +2,8 @@ import React from "react";
 import Recipe from "./Recipe";
 
 const FavouriteRecipes = () => {
-  if (JSON.parse(localStorage.getItem("favourites")) === null){
-    localStorage.setItem('favourites', JSON.stringify([]));
-
+  if (JSON.parse(localStorage.getItem("favourites")) === null) {
+    localStorage.setItem("favourites", JSON.stringify([]));
   }
   const recipes = JSON.parse(localStorage.getItem("favourites"));
   recipes.length >= 4
