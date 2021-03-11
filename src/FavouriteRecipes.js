@@ -7,7 +7,6 @@ const FavouriteRecipes = () => {
 
   }
   const recipes = JSON.parse(localStorage.getItem("favourites"));
-  console.log(recipes)
   recipes.length >= 4
     ? (document.getElementById("root").style.height = "100%")
     : (document.getElementById("root").style.height = "100vh");

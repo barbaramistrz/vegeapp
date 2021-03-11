@@ -111,7 +111,6 @@ const Recipes = () => {
         </div>
       </div>
     );} else{
-    console.log(recipes);
     if (recipes.length === 0) {
       document.getElementById("root").style.height = "100vh";
       return (
@@ -126,7 +125,6 @@ const Recipes = () => {
 
     } else {
       recipes.length >=4 ? document.getElementById("root").style.height = "100%": document.getElementById("root").style.height = "100vh";
-      console.log(isLoading)
       return (
         <div className="container">
           <Search search={search} />

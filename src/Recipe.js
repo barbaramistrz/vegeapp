@@ -9,7 +9,6 @@ const Recipe = ({ recipe, index }) => {
     if(localStorage.getItem('favourites') !== null){
     let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
     let recipefavourite = storedFavorites.find(rec => rec.recipe.label === recipe.recipe.label);
-    console.log(recipefavourite)
      recipefavourite !== undefined? setIsFavourite(true) : setIsFavourite(false);
  }}
 
@@ -25,7 +24,6 @@ const Recipe = ({ recipe, index }) => {
     if(storedFavorites.length >= 1){
     storedFavorites.push(recipe)
     localStorage.setItem('favourites', JSON.stringify(storedFavorites))
-    console.log(storedFavorites)
     }else{
       localStorage.setItem('favourites', JSON.stringify([recipe]))
     }
@@ -38,13 +36,11 @@ const Recipe = ({ recipe, index }) => {
     let storedFavorites = JSON.parse(localStorage.getItem('favourites'))
     storedFavorites.splice(storedFavorites.findIndex(rec => rec.recipe.label === recipe.recipe.label), 1);
     localStorage.setItem('favourites', JSON.stringify(storedFavorites));
-    console.log(storedFavorites)
   };
 
-  const  toggleFavourite = (e) => {
+  const toggleFavourite = (e) => {
     e.preventDefault();
     setIsFavourite(!isFavourite);
-    console.log(isFavourite)
     isFavourite? remove() : add();
   };
   
