@@ -78,12 +78,12 @@ const Recipe = ({ recipe, index }) => {
             {isFavourite ? (
               <img
                 className="fa fa-home"
-                src="https://image.flaticon.com/icons/png/512/1077/1077086.png"
+                src="https://cdn-icons.flaticon.com/png/512/2077/premium/2077502.png?token=exp=1649001719~hmac=587d4472ce83d88bbfd3c5a441eb7414"
               />
             ) : (
               <img
                 className="fa fa-home"
-                src="https://image.flaticon.com/icons/png/512/1077/1077035.png"
+                src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
               />
             )}
           </span>
